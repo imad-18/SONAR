@@ -1,0 +1,10 @@
+1st -> Create a class 'C1' of a list of elements named 'myListL' inside 'models' folder
+2nd -> extract the widget from the main page/screen, and copy it to a new 'item_page' in 'widgets' folder 
+..and ceate an instance of the list inside this widget's class: 
+    final C1 myList1;
+    required this.myList1;
+..Then Add all properties in the right place: myList.name, myList.Title, ...
+3th -> Go the main page again and call the 'item page' by :
+itemBuilder: (context, index) {
+                return ItemPage(myList1: myList[index]);
+}
