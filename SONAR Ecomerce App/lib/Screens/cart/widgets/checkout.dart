@@ -11,7 +11,7 @@ class CheckoutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // ProductController prodCon = Get.find<ProductController>();
     return Container(
-      height: 130,
+      height: 140,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
       decoration: BoxDecoration(
         color: Colors.deepPurple[300],
