@@ -9,7 +9,7 @@ class CheckoutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  ProductController prodCon = Get.find<ProductController>();
+    // ProductController prodCon = Get.find<ProductController>();
     return Container(
       height: 130,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
