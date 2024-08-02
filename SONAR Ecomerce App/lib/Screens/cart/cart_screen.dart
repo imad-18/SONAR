@@ -37,7 +37,7 @@ class CartScreen extends StatelessWidget {
             ),
             GetBuilder<ProductController>(builder: (controller) {
               return Text(
-                '${myProductController.productQuantity} items',
+                '${cartItems.length} items',
                 style: TextStyle(color: Colors.grey[900], fontSize: 16),
               );
             }),
@@ -70,6 +70,7 @@ class CartScreen extends StatelessWidget {
                   onDismissed: (direction) {
                     if (index < cartItems.length) {
                       myProductController.removeFromCart(cartItems[index]);
+                
                     }
                   },
                   background: Container(
