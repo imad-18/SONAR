@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_test/controllers/auth_controller.dart';
+import 'package:get/get.dart';
 
 var formKey = GlobalKey<FormState>();
 String emailInput = '', passInput = '', passInputConfirmtion = '';
@@ -14,6 +16,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.find<AuthController>();
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -168,7 +171,7 @@ class SignupScreen extends StatelessWidget {
                     height: 35,
                   ),
                   TextButton(
-                    onPressed: () => signUp(context),
+                    onPressed: () => signUp(context, authController),
                     child: const Text('Continue'),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white, //content color
@@ -253,7 +256,7 @@ class SignupScreen extends StatelessWidget {
   }
 }
 
-void signUp(context) {
+void signUp(context, AuthController authController) {
   print('Salam');
   if (formKey.currentState!.validate()) {
     formKey.currentState!.save();
@@ -261,6 +264,7 @@ void signUp(context) {
     print(passInput);
     print(passInputConfirmtion);
     //call sign up APIa
+    authController.signUp(emailInput, passInput);
     //if success
     //go to the home screen
 

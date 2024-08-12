@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/models/cart_model.dart';
 
-import '../../../models/popular_product_model.dart';
-
 class AddItemList extends StatelessWidget {
   final CartModel cart;
   const AddItemList({

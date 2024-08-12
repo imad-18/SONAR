@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906717038980",
+    "project_id": "sonar-app-e4319",
+    "storage_bucket": "sonar-app-e4319.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906717038980:android:25dff5a1ac9f580e8d75d1",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTmHoCnHyadu17uwOHk7dN9zY-0iVXLpQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

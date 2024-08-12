@@ -254,9 +254,9 @@ class SigninScreen extends StatelessWidget {
 void signIn(context) {
   if (formKey.currentState!.validate()) {
     formKey.currentState!.save();
-    print(emailInput);
-    print(passInput);
-    print(isChecked);
+    debugPrint(emailInput);
+    debugPrint(passInput);
+    debugPrint(isChecked.toString());
 
     Navigator.pushNamed(context,
         '/home'); //to navigate to home screen when clicking to the button

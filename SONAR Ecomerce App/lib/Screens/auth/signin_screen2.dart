@@ -12,12 +12,12 @@ class Signin2 extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(35),
+          padding: const EdgeInsets.all(35),
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(
@@ -41,10 +41,10 @@ class Signin2 extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
-                Text(
+                const Text(
                   'Welcome back',
                   style: TextStyle(
                     color: Colors.black,
@@ -53,10 +53,10 @@ class Signin2 extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 22,
                 ),
-                Text(
+                const Text(
                   'Sign in with your email and password  \nor continue with social media',
                   style: TextStyle(
                     color: Colors.grey,
@@ -64,7 +64,7 @@ class Signin2 extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
                 TextField(
@@ -72,29 +72,29 @@ class Signin2 extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'email',
                     hintText: 'Enter your email',
-                    suffixIcon: Icon(Icons.email_outlined),
+                    suffixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 TextField(
                   decoration: InputDecoration(
                     labelText: 'Password',
                     hintText: 'Enter your password',
-                    suffixIcon: Icon(Icons.lock_outline_rounded),
+                    suffixIcon: const Icon(Icons.lock_outline_rounded),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -114,19 +114,19 @@ class Signin2 extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
                 TextButton(
                   onPressed: lalao,
-                  child: Text('Continue'),
+                  child: const Text('Continue'),
                   style: TextButton.styleFrom(
-                      backgroundColor: Color(0xfff77546),
+                      backgroundColor: const Color(0xfff77546),
                       foregroundColor: Colors.white,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 115, vertical: 20)),
+                          const EdgeInsets.symmetric(horizontal: 115, vertical: 20)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 55,
                 ),
                 Row(
@@ -145,7 +145,7 @@ class Signin2 extends StatelessWidget {
                         height: 25,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Container(
@@ -160,7 +160,7 @@ class Signin2 extends StatelessWidget {
                         width: 30,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Container(
@@ -177,10 +177,10 @@ class Signin2 extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
