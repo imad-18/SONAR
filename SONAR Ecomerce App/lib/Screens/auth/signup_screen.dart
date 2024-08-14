@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 var formKey1 = GlobalKey<FormState>();
 String emailInput = '', passInput = '', passInputConfirmtion = '';
 
-  //final GlobalKey<FormState> _form = GlobalKey<FormState>();
-  final TextEditingController _pass = TextEditingController();
-  //final TextEditingController _confirmPass = TextEditingController();
+//final GlobalKey<FormState> _form = GlobalKey<FormState>();
+final TextEditingController _pass = TextEditingController();
+//final TextEditingController _confirmPass = TextEditingController();
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -33,10 +33,11 @@ class SignupScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: (){
+                        onPressed: () {
                           if (Navigator.canPop(context)) {
                             Navigator.pop(context);
-                          };
+                          }
+                          ;
                         },
                         icon: Icon(
                           Icons.arrow_back_ios_new_rounded,
@@ -145,8 +146,8 @@ class SignupScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
                       hintText: 'Re-enter your password',
-                      suffixIcon:
-                          const Icon(Icons.lock_outline_rounded), //for l9fal icon
+                      suffixIcon: const Icon(
+                          Icons.lock_outline_rounded), //for l9fal icon
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
@@ -159,12 +160,11 @@ class SignupScreen extends StatelessWidget {
                     validator: (String? value) {
                       if (value!.isEmpty) {
                         return 'Please enter a valid password';
-                      }else if(value.length < 8){
+                      } else if (value.length < 8) {
                         return 'length must be > 8';
-                      }else if(value != _pass.text){
+                      } else if (value != _pass.text) {
                         return 'Password does not match !!';
-                      }
-                      else {
+                      } else {
                         return null;
                       }
                     },
@@ -172,20 +172,25 @@ class SignupScreen extends StatelessWidget {
                   const SizedBox(
                     height: 35,
                   ),
-                  TextButton(
-                    onPressed: () => signUp(context, authController),
-                    child: const Text('Continue'),
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.white, //content color
-                      backgroundColor: const Color.fromARGB(255, 255, 115, 0), //bg color: 0xfff77546 : original
-                      padding: const EdgeInsets.symmetric(
-                        //padding width & height
-                        vertical: 20,
-                        horizontal: 115,
-                      ),
-                      //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)), //applied by default
-                    ),
-                  ),
+                  GetBuilder<AuthController>(builder: (controller) {
+                    return authController.isLoading
+                        ? CircularProgressIndicator()
+                        : TextButton(
+                            onPressed: () => signUp(context, authController),
+                            child: const Text('Continue'),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.white, //content color
+                              backgroundColor: const Color.fromARGB(255, 255,
+                                  115, 0), //bg color: 0xfff77546 : original
+                              padding: const EdgeInsets.symmetric(
+                                //padding width & height
+                                vertical: 20,
+                                horizontal: 115,
+                              ),
+                              //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)), //applied by default
+                            ),
+                          );
+                  }),
                   const SizedBox(
                     height: 35,
                   ),
@@ -272,10 +277,8 @@ void signUp(context, AuthController authController) async{
 
     if (isSuccess) {
       Navigator.pushReplacementNamed(context, '/home');
-    }else{
+    } else {
       debugPrint("Sign up failed!");
     }
   }
 }
-
-

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       ),
       //home: const SigninScreen(),
       // initialRoute: FirebaseAuth.instance.currentUser == null? '/signin' : '/home', 
-      //if the user is already signed in, he'll be redirected directly to the home screen
+      //if the user is already signed in, he'll be navigated directly to the home screen
       initialRoute: '/signin',
       routes: {
         '/signin': (context) => const SigninScreen(),

@@ -26,7 +26,6 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     AuthController authController = Get.find<AuthController>();
-    String passInput2 = '';
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -196,21 +195,26 @@ class _SigninScreenState extends State<SigninScreen> {
                   const SizedBox(
                     height: 35,
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.white, //content color
-                      backgroundColor:
-                          const Color.fromARGB(255, 255, 115, 0), //bg color
-                      padding: const EdgeInsets.symmetric(
-                        //padding width & height
-                        vertical: 20,
-                        horizontal: 115,
-                      ),
-                      //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)), //applied by default
-                    ),
-                    onPressed: () => signIn(context, authController),
-                    child: const Text('Continue'),
-                  ),
+                  GetBuilder<AuthController>(builder: (controller) {
+                    return authController.isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : TextButton(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.white, //content color
+                              backgroundColor: const Color.fromARGB(
+                                  255, 255, 115, 0), //bg color
+                              padding: const EdgeInsets.symmetric(
+                                //padding width & height
+                                vertical: 20,
+                                horizontal: 115,
+                              ),
+                              //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)), //applied by default
+                            ),
+                            onPressed: () => signIn(context, authController),
+                            child: const Text('Continue'),
+                          );
+                  }),
+
                   const SizedBox(
                     height: 35,
                   ),

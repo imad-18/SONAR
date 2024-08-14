@@ -3,7 +3,15 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController extends GetxController {
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  set isLoading(bool value) {
+    _isLoading = value;
+    update();
+  }
+
   Future<bool> signUp(String emailAddress, String password) async {
+    isLoading = true;
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -11,11 +19,8 @@ class AuthController extends GetxController {
         password: password,
       );
       debugPrint("Create account: ${credential.user?.email}");
-      if (credential.user != null) {
-        return true;
-      } else {
-        return false;
-      }
+      isLoading = false;
+      return credential.user != null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         debugPrint('The password provided is too weak.');
@@ -25,16 +30,19 @@ class AuthController extends GetxController {
     } catch (e) {
       debugPrint(e.toString());
     }
+    isLoading = false;
     return false;
   }
 
   Future<bool> signIn(String myEmail, String pass) async {
+    isLoading = true;
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: myEmail,
         password: pass,
       );
       debugPrint("Logged in with account: ${credential.user?.email}");
+      isLoading = false;
       return credential.user != null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -50,13 +58,14 @@ class AuthController extends GetxController {
       // Catch any other exceptions
       debugPrint('Error during sign-in: ${e.toString()}');
     }
+    isLoading = false;
     return false;
   }
 
-  void logOut(context){
+  void logOut(context) {
     FirebaseAuth.instance.signOut();
-    Navigator.popAndPushNamed(context, '/signin');
+    Navigator.popAndPushNamed(context, '/signup');
+    // Navigator.pushNamedAndRemoveUntil(context, '/signin', (route) => false);
     debugPrint("Nice Log out");
   }
-
 }
