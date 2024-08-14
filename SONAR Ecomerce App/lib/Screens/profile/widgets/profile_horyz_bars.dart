@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/controllers/auth_controller.dart';
+import 'package:get/get.dart';
 
 class ProfilaBars extends StatelessWidget {
   final String bareType;
@@ -11,13 +13,18 @@ class ProfilaBars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.find<AuthController>();
     return TextButton(
-      onPressed:() {
+      onPressed: () {
         //That's how we can handle rounting/Navigation
-        if(bareType =='Log Out')
-        Navigator.pushNamed(context, '/signin');
+        if (bareType == 'Log Out')
+          // Navigator.pushNamedAndRemoveUntil(
+          //     context, '/signup', (Route<dynamic> route) => false);
+        
+        authController.logOut(context);
+        // Navigator.popUntil(context, ModalRoute.withName('/signin'));
         // if(bareType =='My Account')
-        // Navigator.pushNamed(context, '/signup');
+        // Navigator.popAndPushNamed(context, '/signin');
       },
       style: TextButton.styleFrom(
         foregroundColor: Colors.black.withOpacity(.4),
@@ -38,10 +45,10 @@ class ProfilaBars extends StatelessWidget {
             children: [
               Icon(
                 myIcon, //I got an error here before. I had to use 'IconData' instead on 'Icon'
-                size: 24, 
+                size: 24,
                 color: Color.fromARGB(255, 255, 115, 0),
               ),
-              SizedBox(width: 8), 
+              SizedBox(width: 8),
               Text(
                 '${bareType}',
                 style: TextStyle(fontSize: 18),

@@ -2,29 +2,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
+import '../../controllers/auth_controller.dart';
 import 'Widgets/stateful_checkbox.dart'; //External homemade widget
 import 'Widgets/stateful_pass_visibility.dart'; //External homemade widget
 
-var formKey = GlobalKey<FormState>();
+var signinKey = GlobalKey<FormState>();
 String emailInput = '', passInput = '';
 bool isChecked = false;
 
 //Password eye icon
 bool isVisible = false;
 
-class SigninScreen extends StatelessWidget {
+class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
 
   @override
+  State<SigninScreen> createState() => _SigninScreenState();
+}
+
+class _SigninScreenState extends State<SigninScreen> {
+  @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.find<AuthController>();
+    String passInput2 = '';
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+          padding: const EdgeInsets.fromLTRB(34, 0, 34, 0),
           child: Form(
-            key: formKey,
+            key: signinKey,
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -35,7 +44,10 @@ class SigninScreen extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                          ;
                         },
                         icon: Icon(
                           Icons.arrow_back_ios_new_rounded,
@@ -118,7 +130,42 @@ class SigninScreen extends StatelessWidget {
                     height: 25,
                   ),
                   //TextFormField
-                  const StatefullPassVisibility(),
+                  TextFormField(
+                    obscureText: isVisible, //to hide password
+                    onSaved: (String? newValue) {
+                      passInput = newValue!;
+                      debugPrint('pass saved succ: $passInput');
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter yout Password";
+                      } else if (value.length < 8) {
+                        return "length must be > 8";
+                      } else {
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 15,
+                      ),
+                      labelText: 'Password',
+                      hintText: 'Enter your password', //placeHolder
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            isVisible = !isVisible;
+                            setState(() {});
+                          },
+                          icon: Icon(isVisible
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined)), //4 l9fal icon
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
 
                   const SizedBox(
                     height: 20,
@@ -152,7 +199,8 @@ class SigninScreen extends StatelessWidget {
                   TextButton(
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white, //content color
-                      backgroundColor: const Color.fromARGB(255, 255, 115, 0), //bg color
+                      backgroundColor:
+                          const Color.fromARGB(255, 255, 115, 0), //bg color
                       padding: const EdgeInsets.symmetric(
                         //padding width & height
                         vertical: 20,
@@ -160,7 +208,7 @@ class SigninScreen extends StatelessWidget {
                       ),
                       //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)), //applied by default
                     ),
-                    onPressed: () => signIn(context),
+                    onPressed: () => signIn(context, authController),
                     child: const Text('Continue'),
                   ),
                   const SizedBox(
@@ -251,14 +299,19 @@ class SigninScreen extends StatelessWidget {
   }
 }
 
-void signIn(context) {
-  if (formKey.currentState!.validate()) {
-    formKey.currentState!.save();
-    debugPrint(emailInput);
-    debugPrint(passInput);
-    debugPrint(isChecked.toString());
-
-    Navigator.pushNamed(context,
-        '/home'); //to navigate to home screen when clicking to the button
+void signIn(context, AuthController authController) async {
+  if (signinKey.currentState!.validate()) {
+    signinKey.currentState!.save();
+    debugPrint('\nEmail: $emailInput');
+    debugPrint('\n pass: $passInput \n');
+    debugPrint('Remember me: $isChecked');
+    //call sign in API
+    bool isSuccess2 = await authController.signIn(emailInput, passInput);
+    debugPrint('Sign-in Success: $isSuccess2');
+    if (isSuccess2) {
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      debugPrint("Sign in failed!");
+    }
   }
 }

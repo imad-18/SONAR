@@ -14,9 +14,10 @@ class _StatefullPassVisibilityState extends State<StatefullPassVisibility> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: isVisible, //to hide password
+      //obscureText: isVisible, //to hide password
       onSaved: (String? newValue) {
         passInput = newValue!;
+        debugPrint('pass saved succ: $passInput');
       },
       validator: (String? value) {
         if (value == null || value.isEmpty) {
@@ -29,7 +30,7 @@ class _StatefullPassVisibilityState extends State<StatefullPassVisibility> {
       },
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 15,
         ),

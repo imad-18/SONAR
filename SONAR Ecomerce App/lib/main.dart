@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/Screens/Home/home_screen.dart';
@@ -41,7 +42,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: const SigninScreen(),
-      initialRoute: '/signup', //default screen
+      // initialRoute: FirebaseAuth.instance.currentUser == null? '/signin' : '/home', 
+      //if the user is already signed in, he'll be redirected directly to the home screen
+      initialRoute: '/signin',
       routes: {
         '/signin': (context) => const SigninScreen(),
         '/signup': (context) => const SignupScreen(),

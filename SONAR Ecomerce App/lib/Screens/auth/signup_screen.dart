@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_application_test/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
-var formKey = GlobalKey<FormState>();
+var formKey1 = GlobalKey<FormState>();
 String emailInput = '', passInput = '', passInputConfirmtion = '';
 
   //final GlobalKey<FormState> _form = GlobalKey<FormState>();
@@ -21,9 +21,9 @@ class SignupScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: SafeArea(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+          padding: const EdgeInsets.symmetric(horizontal: 36),
           child: Form(
-            key: formKey,
+            key: formKey1,
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -34,7 +34,9 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: (){
-                          Navigator.pop(context);
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          };
                         },
                         icon: Icon(
                           Icons.arrow_back_ios_new_rounded,
@@ -256,19 +258,23 @@ class SignupScreen extends StatelessWidget {
   }
 }
 
-void signUp(context, AuthController authController) {
-  print('Salam');
-  if (formKey.currentState!.validate()) {
-    formKey.currentState!.save();
-    print(emailInput);
-    print(passInput);
-    print(passInputConfirmtion);
+void signUp(context, AuthController authController) async{
+  debugPrint('Salam');
+  if (formKey1.currentState!.validate()) {
+    formKey1.currentState!.save();
+    debugPrint(emailInput);
+    debugPrint(passInput);
+    debugPrint(passInputConfirmtion);
     //call sign up APIa
-    authController.signUp(emailInput, passInput);
+    bool isSuccess = await authController.signUp(emailInput, passInput);
     //if success
     //go to the home screen
 
-    Navigator.pushNamed(context, '/home');
+    if (isSuccess) {
+      Navigator.pushReplacementNamed(context, '/home');
+    }else{
+      debugPrint("Sign up failed!");
+    }
   }
 }
 
